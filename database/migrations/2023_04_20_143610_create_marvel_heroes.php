@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('marvel_heroes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('marvel_id');
             $table->integer('votes')->default(0);
             $table->timestamps();
         });

@@ -3,40 +3,43 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class HeroController extends Controller
 {
+
     public function list(Request $request)
     {
         try {
-            $authorizationParams = $this->generateAuthorizationParams();
 
-            $response = Http::get('https://gateway.marvel.com/v1/public/characters', $authorizationParams);
-
-            $marvelResponse = $response->json();
-            dd($marvelResponse['data']['results']);
-            $heroes = $marvelResponse['data']['results'];
-
-
-            return response()->json($heroes);
+            $heroes = DB::table('marvel_heroes')
+                        ->select('id', 'name', 'marvel_id')
+                        ->orderBy('votes', 'desc')
+                        ->orderBy('name', 'asc')
+                        ->get()->toArray();
+            return response()->json(['success' => true, 'heroes' => $heroes]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
 
+    public function loadHeroInfo($heroId) {
+        try {
 
-    function generateAuthorizationParams()
-    {
-        $ts = time();
-        $privateKey = env('MARVEL_PRIVATE_KEY');
-        $publicKey = env('MARVEL_PUBLIC_KEY');
-        $hash = md5($ts . $privateKey . $publicKey);
+            $authorizationParams = MarvelAPIAuthorizationController::generateAuthorizationParams();
 
-        return [
-            'apikey' => $publicKey,
-            'ts' => $ts,
-            'hash' => $hash,
-        ];
+            $response = Http::get('https://gateway.marvel.com:443/v1/public/characters', array_merge($authorizationParams, [
+                'id' => $heroId
+            ]));
+
+            $heroData = json_decode($response->body(), true);
+
+            return response()->json(['success' => true, 'heroData' => $heroData['data']['results'][0]]);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+
 }

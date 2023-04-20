@@ -17,13 +17,13 @@ const app = createApp({});
 
 import ExampleComponent from './components/ExampleComponent.vue';
 import MarvelHeroes from './components/MarvelHeroes.vue';
+import HeroDatails from './components/HeroDetails.vue';
 
 
 app.component('example-component', ExampleComponent);
 
-
-
 app.component('marvel-heroes', MarvelHeroes);
+app.component('hero-datails', HeroDatails);
 
 
 
