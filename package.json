@@ -16,7 +16,6 @@
         "vue-loader": "^17.0.1"
     },
     "dependencies": {
-        "vue-modal-dialogs": "^3.0.0",
         "watch": "^1.0.2"
     }
 }

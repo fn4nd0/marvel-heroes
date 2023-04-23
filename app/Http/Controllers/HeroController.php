@@ -14,7 +14,7 @@ class HeroController extends Controller
         try {
 
             $heroes = DB::table('marvel_heroes')
-                        ->select('id', 'name', 'marvel_id')
+                        ->select('id', 'name', 'marvel_id', 'description', 'image_url', 'votes')
                         ->orderBy('votes', 'desc')
                         ->orderBy('name', 'asc')
                         ->get()->toArray();

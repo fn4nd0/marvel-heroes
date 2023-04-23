@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('marvel_id');
+            $table->longText('description');
+            $table->string('image_url');
             $table->integer('votes')->default(0);
             $table->timestamps();
         });

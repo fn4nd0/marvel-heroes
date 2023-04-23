@@ -30,30 +30,22 @@ class HeroLoaderController extends Controller
             } while ($marvelResponse['data']['total'] > $offset);
 
             foreach ($heroes as $hero) {
+
+                $url = $hero['thumbnail']['path'] . '.' . $hero['thumbnail']['extension'];
+
                 $filteredHero = [
                     'name' => $hero['name'],
-                    'marvel_id' => $hero['id']
+                    'marvel_id' => $hero['id'],
+                    'description' => $hero['description'],
+                    'image_url' => $url
                 ];
                 $filteredHeroes[] = $filteredHero;
             }
 
             DB::table('marvel_heroes')->insert($filteredHeroes);
         } catch (\Exception $e) {
-            Log::error("Error no loading. Error: {$e->getMessage()}");
+            Log::error("[HeroLoaderController][load][. Error: " . $e->getMessage() . "]");
         }
     }
 
-    private function generateAuthorizationParams()
-    {
-        $ts = time();
-        $privateKey = env('MARVEL_PRIVATE_KEY');
-        $publicKey = env('MARVEL_PUBLIC_KEY');
-        $hash = md5($ts . $privateKey . $publicKey);
-
-        return [
-            'apikey' => $publicKey,
-            'ts' => $ts,
-            'hash' => $hash,
-        ];
-    }
 }

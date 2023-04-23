@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Http\Controllers\HeroLoaderController;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 
 class RunAllMigrations extends Command
 {
@@ -27,11 +28,16 @@ class RunAllMigrations extends Command
      */
     public function handle()
     {
-        Artisan::call('migrate', ['--force' => true]);
+        try {
+            Artisan::call('migrate', ['--force' => true]);
 
-        $this->info('Loading initial data from Marvel heroes...');
-
-        $heroLoader = new HeroLoaderController();
-        $heroLoader->load();
+            $this->info('Loading initial heros data from Marvel API...');
+            $heroLoader = new HeroLoaderController();
+            $heroLoader->load();
+            $this->info('Data Loaded!');
+        } catch (\Exception $e) {
+            Log::error("[RunAllMigrations][handle][Error: " . $e->getMessage() . "]");
+            $this->info('Error: ' . $e->getMessage());
+        }
     }
 }

@@ -7,6 +7,9 @@
 import './bootstrap';
 import { createApp } from 'vue';
 
+
+import 'bootstrap/dist/css/bootstrap.css';
+
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -15,16 +18,11 @@ import { createApp } from 'vue';
 
 const app = createApp({});
 
-import ExampleComponent from './components/ExampleComponent.vue';
 import MarvelHeroes from './components/MarvelHeroes.vue';
 import HeroDatails from './components/HeroDetails.vue';
 
-
-app.component('example-component', ExampleComponent);
-
 app.component('marvel-heroes', MarvelHeroes);
 app.component('hero-datails', HeroDatails);
-
 
 
 /**
