@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 class HeroController extends Controller
 {
 
-    public function list(Request $request)
+    public function list()
     {
         try {
 
@@ -37,6 +37,19 @@ class HeroController extends Controller
 
             return response()->json(['success' => true, 'heroData' => $heroData['data']['results'][0]]);
 
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function voteHero($heroId)
+    {
+        try {
+                DB::table('marvel_heroes')
+                    ->where('id', $heroId)
+                    ->increment('votes');
+
+                return response()->json(['success' => true]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

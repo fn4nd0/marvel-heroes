@@ -17,4 +17,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/heroes-list', [App\Http\Controllers\HeroController::class, 'list']);
 Route::get('/hero-info/{marvel_id}', [App\Http\Controllers\HeroController::class, 'loadHeroInfo']);
+Route::post('/hero-voting/{marvel_id}', [App\Http\Controllers\HeroController::class, 'voteHero']);
 

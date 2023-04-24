@@ -2,8 +2,8 @@
     <div v-if="hero">
         <h2>{{ hero.name }}</h2>
         <img :src="hero.image_url" :alt="hero.name" class="hero-image" />
-        <p v-if="hero.description">{{ hero.description }}</p>
-        <p v-else>No description available</p>
+        <p class="description" v-if="hero.description">{{ hero.description }}</p>
+        <p class="description" v-else>No description available at Marvel</p>
     </div>
     <div v-else>
         <p>Loading...</p>
@@ -50,5 +50,8 @@
   max-height: 80vh;
   display: block;
   margin: 0 auto;
+}
+.description {
+  margin-top: 1rem;
 }
 </style>
