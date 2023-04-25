@@ -10,15 +10,15 @@
 
 1) Download the repository
 
-2) Create an .env file based on the .env.example and set up your DB connections. Also generate the key with the command: `php artisan key:generate`
+2) Open the terminal in the main directory of the project, then run  `composer install`
 
-3) Access https://developer.marvel.com/account and create a pair of keys to work with the API
+3) Run `npm install`
 
-4) In .env file, place your MARVEL_PUBLIC_KEY and MARVEL_PRIVATE_KEY
+4) Create an .env file based on the .env.example and set up your DB connections. Also generate the key with the command: `php artisan key:generate`
 
-5) Open the terminal in the main directory of the project, then run  `composer install`
+5) Access https://developer.marvel.com/account and create a pair of keys to work with the API
 
-6) Run `npm install`
+6)  In .env file, place your MARVEL_PUBLIC_KEY and MARVEL_PRIVATE_KEY
 
 7) Run `php artisan app:run-all-migrations`. This command will create the database (if not exists), tables and load marvel data
 
