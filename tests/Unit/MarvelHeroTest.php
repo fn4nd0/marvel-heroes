@@ -3,12 +3,12 @@
 namespace Tests\Unit;
 
 use App\Models\MarvelHero;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 class MarvelHeroTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     // This is a test function to check if the Hero model can be updated correctly.
     public function testUpdateHero()
