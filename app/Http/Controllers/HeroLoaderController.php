@@ -2,17 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\JsonResponse;
 
 class HeroLoaderController extends Controller
 {
-    public function load()
+    /**
+     * This method loads the heroes from the Marvel API and stores them in the database.
+     *
+     * @return JsonResponse Indicating success or failure.
+     */
+    public function load(): JsonResponse
     {
         try {
-            $authorizationParams = MarvelAPIAuthorizationController::generateAuthorizationParams();
+            $authorizationParams = MarvelApiAuthorizationController::generateAuthorizationParams();
             $offset = 0;
             $heroes = [];
 
@@ -33,6 +38,7 @@ class HeroLoaderController extends Controller
                 $offset += 100;
             } while ($marvelResponse['data']['total'] > $offset);
 
+            $filteredHeroes = [];
             foreach ($heroes as $hero) {
 
                 $url = $hero['thumbnail']['path'] . '.' . $hero['thumbnail']['extension'];
@@ -50,7 +56,7 @@ class HeroLoaderController extends Controller
 
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
-            Log::error("[HeroLoaderController][load][. Error: " . $e->getMessage() . "]");
+            Log::error("[HeroLoaderController][load][Error: " . $e->getMessage() . "]");
             return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
         }
     }

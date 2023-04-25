@@ -14,6 +14,11 @@ class HeroController extends Controller
         $this->heroRepository = $heroRepository;
     }
 
+    /**
+     * This method returns a list of heroes.
+     *
+     * @return JsonResponse Indicating success or failure.
+     */
     public function list(): JsonResponse
     {
         try {
@@ -24,6 +29,15 @@ class HeroController extends Controller
         }
     }
 
+    /**
+     * Increase the vote for the specified Marvel hero.
+     *
+     * @param  int  $marvelId The ID of the hero to vote for.
+     *
+     * @return JsonResponse Indicating success or failure.
+     *
+     * @throws \Exception If there was an error casting the vote.
+     */
     public function voteHero(int $marvelId): JsonResponse
     {
         try {

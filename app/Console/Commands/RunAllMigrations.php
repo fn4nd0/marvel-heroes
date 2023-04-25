@@ -35,7 +35,7 @@ class RunAllMigrations extends Command
             $heroLoader = new HeroLoaderController();
             $loadResult = $heroLoader->load();
             $decodedResult = $loadResult->getData();
-            
+
             if (!$decodedResult->success) {
                 $this->info($decodedResult->error);
             } else {

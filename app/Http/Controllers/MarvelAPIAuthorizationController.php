@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-class MarvelAPIAuthorizationController extends Controller
+class MarvelApiAuthorizationController extends Controller
 {
-    public static function generateAuthorizationParams()
+    /**
+     * This method generates the authorization parameters for the Marvel API.
+     *
+     * @return array The authorization parameters.
+     */
+    public static function generateAuthorizationParams(): array
     {
         $ts = time();
         $privateKey = env('MARVEL_PRIVATE_KEY');
