@@ -1,5 +1,15 @@
 # Welcome to the Marvel Heroes Project!
 
+## This project were created to practice Laravel and Vue.js. 
+These are a few things worked with in this project:
+- API
+- PSR
+- Commands
+- Migrations
+- PHP Unit Tests
+- Git!
+- Vue Components
+
 
 **Prerequisites:**
 - PHP 8.2
