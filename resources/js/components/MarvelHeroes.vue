@@ -47,9 +47,6 @@
                     <div class="modal-body">
                         <hero-details :hero="selectedHero"></hero-details>
                     </div>
-                    <!-- <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="hideModal">Close</button>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -71,6 +68,7 @@ export default {
         }
     },
     methods: {
+        // Makes a GET request to the heroes-list endpoint and update the list of heroes.
         async fetchHeroes() {
             try {
                 const response = await axios.get('/api/heroes-list')
@@ -80,17 +78,22 @@ export default {
             }
         },
 
+        // Called when a hero's name is clicked, setting the selected hero as hero.
         loadHeroInfo(hero) {
             this.selectedHero = hero
         },
 
+        //  Called when the modal close button or ESC key is pressed, setting the selectedHero to null to hide the modal.
         hideModal() {
             this.selectedHero = null
         },
+
+        // Called when the "Favorite" button is clicked, making a POST request.
         heroVoting(heroId) {
             console.log("heroId: ", heroId)
             axios.post('/api/hero-voting/' + heroId)
                 .then(response => {
+                    // If the request is successful, fetchHeroes() is called to update the list of heroes.
                     this.fetchHeroes()
                 })
                 .catch(error => {
@@ -99,6 +102,7 @@ export default {
         },
     },
     mounted() {
+        // Populate the initial list of heroes
         this.fetchHeroes()
 
         // Listen for keydown event on the document

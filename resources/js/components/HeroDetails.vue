@@ -12,7 +12,6 @@
 
 <script>
   import { defineComponent } from 'vue';
-  import axios from 'axios';
 
   export default defineComponent({
     name: 'HeroDetailsModal',
@@ -30,17 +29,7 @@
     created() {
     },
     methods: {
-    //   async loadHeroInfo() {
-    //     try {
-    //       const response = await axios.get('/api/hero-info/' + this.heroId);
-    //       this.hero = response.data.heroData;
-    //       console.log("this.hero.thumbnail.path: ", this.hero.thumbnail.path)
-    //       console.log("this.hero.thumbnail.extension: ", this.hero.thumbnail.extension)
-    //       console.log("hero.description", this.hero)
-    //     } catch (error) {
-    //       this.error = error.message;
-    //     }
-    //   },
+
     },
   });
 </script>
