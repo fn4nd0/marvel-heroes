@@ -16,6 +16,10 @@ class HeroLoaderController extends Controller
             $offset = 0;
             $heroes = [];
 
+            if (empty($authorizationParams['apikey'])) {
+                return response()->json(['success' => false, 'error' => 'Marvel API Key not found. Check the keys in your .env file']);
+            }
+
             do {
                 $response = Http::get('https://gateway.marvel.com/v1/public/characters', array_merge($authorizationParams, [
                     'limit' => 100,
@@ -43,8 +47,11 @@ class HeroLoaderController extends Controller
             }
 
             DB::table('marvel_heroes')->insert($filteredHeroes);
+
+            return response()->json(['success' => true]);
         } catch (\Exception $e) {
             Log::error("[HeroLoaderController][load][. Error: " . $e->getMessage() . "]");
+            return response()->json(['success' => false, 'error' => $e->getMessage()], 500);
         }
     }
 

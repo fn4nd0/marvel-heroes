@@ -33,8 +33,15 @@ class RunAllMigrations extends Command
 
             $this->info('Loading initial heros data from Marvel API...');
             $heroLoader = new HeroLoaderController();
-            $heroLoader->load();
-            $this->info('Data Loaded!');
+            $loadResult = $heroLoader->load();
+            $decodedResult = $loadResult->getData();
+            
+            if (!$decodedResult->success) {
+                $this->info($decodedResult->error);
+            } else {
+                $this->info('Data Loaded!');
+            }
+
         } catch (\Exception $e) {
             Log::error("[RunAllMigrations][handle][Error: " . $e->getMessage() . "]");
             $this->info('Error: ' . $e->getMessage());
